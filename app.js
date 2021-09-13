@@ -10,5 +10,17 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(port, hostname, () => {
-    console.log('Server running at https://${hostname}:${port}/')
+    const string = `Server running at https://{0}:{1}/`;
+    const newString = stringInject(string, [hostname, port]);
+    console.log(newString);
 })
+
+function stringInject(str, arr) {
+    if (typeof str !== 'string' || !(arr instanceof Array)) {
+        return false;
+    }
+
+    return str.replace(/({\d})/g, function(i) {
+        return arr[i.replace(/{/, '').replace(/}/, '')];
+    });
+}
