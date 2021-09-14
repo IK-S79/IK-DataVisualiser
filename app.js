@@ -1,26 +1,54 @@
-const http = require('http');
+const fastify = require('fastify')({logger: true});
+const base = require('airtable').base('appm8f92LjQairrC2') // TODO: Extract base ID to separate file
+require('classes')
 
-const hostname = '127.0.0.1';
-const port = 3000;
+async function getAllianceData() {
+    let recordsCache = new AllianceRecords();
+    let records = await base('Alliances').select({view: "Grid view"}).all();
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World');
-});
+    records.forEach(function(record) {
+        if (record.get('Name') === 'FASY') {
+            recordsCache.RecordList.push(new AllianceRecord(record));
+        }
+    });
 
-server.listen(port, hostname, () => {
-    const string = `Server running at https://{0}:{1}/`;
-    const newString = stringInject(string, [hostname, port]);
-    console.log(newString);
+    return recordsCache;
+}
+
+fastify.route({
+    method: 'GET',
+    url: '/',
+    schema: {
+        querystring: {
+            name: {type: 'string'}
+        },
+        // the response needs to be an object with an `hello` property of type 'string'
+        response: {
+            200: {
+                type: 'object',
+                properties: {
+                    hello: {type: 'string'}
+                }
+            }
+        }
+    },
+    // this function is executed for every request before the handler is executed
+    preHandler: async () => {
+        // E.g. check authentication
+    },
+    handler: async () => {
+        let allianceRecords = await getAllianceData();
+
+        return allianceRecords.toString();
+    }
 })
 
-function stringInject(str, arr) {
-    if (typeof str !== 'string' || !(arr instanceof Array)) {
-        return false;
+const start = async () => {
+    try {
+        await fastify.listen(3000)
+    } catch (err) {
+        fastify.log.error(err)
+        process.exit(1)
     }
-
-    return str.replace(/({\d})/g, function(i) {
-        return arr[i.replace(/{/, '').replace(/}/, '')];
-    });
 }
+start()
