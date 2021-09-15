@@ -1,5 +1,7 @@
-async function pingRoute (fastify: any, options: any) {
-    fastify.get('/ping', async (request: any, reply: any) => {
+import * as Fastify from 'fastify';
+
+async function pingRoute (fastify: Fastify.FastifyInstance) {
+    fastify.get('/ping', async () => {
         return 'Pong!'
     })
 }

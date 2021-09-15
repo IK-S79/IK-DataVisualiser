@@ -11,6 +11,7 @@ Fastify.get('/', async () => {
 // Register ping route
 Fastify.register(require('./routes/PingRoute'));
 Fastify.register(require('./routes/AuthRoute'))
+Fastify.register(require('./routes/HTMLRoute'))
 
 const start = async () => {
     try {
