@@ -4,14 +4,15 @@ const Fastify = fastify({
     logger: true
 });
 
-Fastify.get('/', async () => {
-    return {hello: 'fastify'}
+Fastify.get('/', async (request, reply) => {
+    reply.redirect('/login')
 })
 
 // Register ping route
 Fastify.register(require('./routes/PingRoute'));
 Fastify.register(require('./routes/AuthRoute'))
-Fastify.register(require('./routes/HTMLRoute'))
+Fastify.register(require('./routes/LoginRoute'))
+Fastify.register(require('./routes/DataRoute'))
 
 const start = async () => {
     try {

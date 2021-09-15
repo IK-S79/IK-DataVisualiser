@@ -30,8 +30,8 @@ async function authRoute (fastify: Fastify.FastifyInstance) {
             const {username, password} = request.query;
             done(username !== 'admin' ? new Error('Must be admin') : undefined) // only validate `admin` account
         },
-        handler: async function() {
-            return 'Logged in!'
+        handler: async function(request, reply) {
+            reply.redirect('/data')
         }
     }
 
