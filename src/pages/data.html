@@ -1,12 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>IK Data</title>
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet"/>
 </head>
 <body>
+<div id="wrapper"></div>
 
-<h1>This page displays our data.</h1>
+<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+
+<script>
+
+    GetJSON('/data/players', function(status, data) {
+        new gridjs.Grid({
+            columns: [{
+                id: 'Alliance',
+                name: 'Alliance'
+            }, {
+                id: 'TroopPower',
+                name: 'Troop Power'
+            }, {
+                id: 'TechContributions',
+                name: 'Tech Contributions'
+            }, {
+                id: 'HighestPower',
+                name: 'Highest Power'
+            }, {
+                id: 'Defeat',
+                name: 'Defeat'
+            }, {
+                id: 'DismantleDurability',
+                name: 'Dismantle Durability'
+            }, {
+                id: 'Rank',
+                name: 'Rank'
+            }, {
+                id: 'NameOverride',
+                name: 'Name Override'
+            }, {
+                id: 'NameInterpreted',
+                name: 'Name Interpreted'
+            }],
+            data: data
+        }).render(document.getElementById("wrapper"));
+    })
+
+    function GetJSON(url, callback) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = function () {
+            const status = xhr.status;
+            if (status === 200) {
+                callback(null, xhr.response);
+            } else {
+                callback(status, xhr.response);
+            }
+        };
+        xhr.send();
+    }
+
+</script>
 
 </body>
 </html>
+
+

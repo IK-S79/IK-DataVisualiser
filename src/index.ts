@@ -13,6 +13,7 @@ Fastify.register(require('./routes/PingRoute'));
 Fastify.register(require('./routes/AuthRoute'))
 Fastify.register(require('./routes/LoginRoute'))
 Fastify.register(require('./routes/DataRoute'))
+Fastify.register(require('./routes/data/PlayerDataRequest'))
 
 const start = async () => {
     try {

@@ -106,3 +106,4 @@ dist
 .idea
 /src/*.js
 /src/routes/*.js
+/src/routes/data/*.js

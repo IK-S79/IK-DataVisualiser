@@ -8,7 +8,7 @@
     "watch": "tsc -w",
     "dev": "nodemon dist/index.js",
     "devIn": "nodemon --exec ts-node src/index.ts",
-    "start": "fastify start index.ts",
+    "start": "fastify start src/index.ts",
     "startIn": "ts-node src/index.ts"
   },
   "keywords": [],
@@ -21,6 +21,7 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
+    "airtable": "^0.11.1",
     "fastify-cli": "^2.13.0",
     "fastify-plugin": "^3.0.0"
   }
