@@ -1,4 +1,5 @@
 import fastify from 'fastify';
+import {DataCache} from "./DataCache";
 
 const Fastify = fastify({
     logger: true
@@ -18,6 +19,7 @@ Fastify.register(require('./routes/data/PlayerDataRequest'))
 const start = async () => {
     try {
         await Fastify.listen(3000)
+        // await DataCache.Instance.UpdateDataCache();
     } catch (err) {
         Fastify.log.error(err);
         process.exit(1);

@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "tsc -w",
     "dev": "nodemon dist/index.js",
-    "devIn": "nodemon --exec ts-node src/index.ts",
-    "start": "fastify start src/index.ts",
-    "startIn": "ts-node src/index.ts"
+    "devIn": "nodemon --exec ts-node src/main.ts",
+    "start": "fastify start src/main.ts",
+    "startIn": "ts-node src/main.ts"
   },
   "keywords": [],
   "author": "",
