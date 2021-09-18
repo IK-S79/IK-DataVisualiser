@@ -11,6 +11,9 @@
 <script>
 
     GetJSON('/data/players', function(status, data) {
+        data.forEach(player => {
+            console.log(player.TroopPower);
+        })
         new gridjs.Grid({
             columns: [{
                 id: 'Alliance',

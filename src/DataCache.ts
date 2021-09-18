@@ -73,7 +73,7 @@ class DataCache {
         // TODO: The alliance is a reference to the Alliances table, not the actual name of the alliance, fix this
         records.forEach((record: Record<any>) => {
             let player = new Player(
-                record.get('Alliance'),
+                record.get('frmAlliance'),
                 record.get('Troop Power'),
                 record.get('Tech Contributions'),
                 record.get('Highest Power'),
